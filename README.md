@@ -125,4 +125,13 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+
+# update version and make CHANGELOG
+$ npm run bump
+
+# start release
+$ npm run release
+
+# finish release
+$ npm run publish
 ```
