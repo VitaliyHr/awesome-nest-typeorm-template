@@ -1,0 +1,31 @@
+version: "3.8"
+
+networks:
+  db_net:
+    driver: bridge
+
+services:
+  database:
+    container_name: postgres
+    image: postgres:13.3
+    ports:
+    - "5432:5432"
+    volumes:
+    - /data/postgres:/var/lib/postgresql
+    networks:
+      - db_net
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test
+    restart: always
+
+  thumbor:
+    image: minimalcompact/thumbor
+    volumes:
+      - /data/db/thumbor
+    ports:
+      - "8998:80"
+    env_file:
+      - thumbor.conf.env
+    restart: always
