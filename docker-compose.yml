@@ -10,8 +10,6 @@ services:
     image: postgres:13.3
     ports:
     - "5432:5432"
-    volumes:
-    - /data/postgres:/var/lib/postgresql
     networks:
       - db_net
     environment:

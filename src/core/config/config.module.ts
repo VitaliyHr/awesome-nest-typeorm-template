@@ -4,7 +4,7 @@ import appConf from '../../config/app.config';
 import authConf from '../../config/auth.config';
 import mailConf from '../../config/mail.config';
 import httpConf from '../../config/http.config';
-import thumborConf from '../../config/thumbor.config';
+import uploadStoreConf from '../../config/upload-store.config';
 import databaseConf from '../../config/database.config';
 
 export default ConfigModule.forRoot({
@@ -14,7 +14,7 @@ export default ConfigModule.forRoot({
     databaseConf,
     authConf,
     mailConf,
-    thumborConf,
+    uploadStoreConf,
     httpConf,
   ],
   encoding: 'UTF-8',

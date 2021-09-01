@@ -1,12 +1,13 @@
-import { Method } from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { LessThan, LessThanOrEqual } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { HttpService, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { Upload } from './upload.entity';
 import { LoggerService } from '~core/logger/logger.service';
 import { UploadsRepository } from './uploads.repository';
+import { UploadStoreService } from '~core/upload-store/upload-store.service';
+import { UploadStoreAction } from '~core/upload-store/enums/upload-store-service.action';
 
 @Injectable()
 export class UploadsSchedule {
@@ -14,22 +15,16 @@ export class UploadsSchedule {
     private readonly uploadsRepository: UploadsRepository,
     private readonly loggerService: LoggerService,
     private readonly configService: ConfigService,
-    private readonly httpService: HttpService,
+    private readonly uploadStore: UploadStoreService,
   ) {
     this.loggerService.setContext(UploadsSchedule.name);
   }
 
   async deleteUploadsFromStore(uploads: Upload[]): Promise<void> {
-    const baseUrl: string = this.configService.get('thumbor.url');
-    const method: Method = this.configService.get('thumbor.method.delete');
-
-   await Promise.all(uploads.map(async (upload) => {
-      const url = `${baseUrl}${upload.location}`;
+    await Promise.all(uploads.map(async (upload) => {
       try {
-        await this.httpService.request({
-          url,
-          method,
-        }).toPromise();
+        await this.uploadStore
+          .request({ action: UploadStoreAction.DELETE, location: upload.location });
       } catch (error) {
         const message = 'Failed to delete upload';
         this.loggerService.error(message, error);

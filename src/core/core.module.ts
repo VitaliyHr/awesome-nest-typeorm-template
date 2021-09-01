@@ -12,6 +12,7 @@ import { LoggerModule } from './logger/logger.module';
 import { HealthModule } from './health/health.module';
 import { DatabaseModule } from './database/database.module';
 import { ListenerModule } from './listener/listener.module';
+import { UploadStoreModule } from './upload-store/upload-store.module';
 
 @Global()
 @Module({
@@ -26,6 +27,7 @@ import { ListenerModule } from './listener/listener.module';
     PingModule,
     HealthModule,
     ScheduleModule.forRoot(),
+    UploadStoreModule,
   ],
   providers: [
     LoggerService,
@@ -35,6 +37,7 @@ import { ListenerModule } from './listener/listener.module';
     ListenerModule,
     ConfigModule,
     HttpModule,
+    UploadStoreModule,
   ],
 })
 export class CoreModule {}

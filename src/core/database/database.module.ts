@@ -15,7 +15,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
         username: configService.get<string>('database.user'),
         password: configService.get<string>('database.password'),
         database: configService.get<string>('database.database'),
-        synchronize: true,
+        synchronize: configService.get<boolean>('isDev'),
         entities: [`${__dirname}/**/*.entity.ts`],
         autoLoadEntities: true,
         namingStrategy: new SnakeNamingStrategy(),

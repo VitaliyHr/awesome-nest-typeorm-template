@@ -3,7 +3,7 @@ import {
   IsObject,
 } from 'class-validator';
 
-export class CreateUploadDto {
+export class UploadDto {
   @ApiProperty({ type: 'string', format: 'binary' })
   @IsObject()
   image: Express.Multer.File;

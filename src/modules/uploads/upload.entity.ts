@@ -1,7 +1,6 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   ManyToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
@@ -11,7 +10,6 @@ import { AbstractEntity } from '~common/entities/abstract.entity';
 @Entity('uploads')
 export class Upload extends AbstractEntity {
   @ManyToOne(() => User, (user) => user.uploads, { nullable: false })
-  @JoinColumn()
   user: User;
 
   @Column({ default: 0, nullable: false, type: 'int' })
@@ -36,7 +34,7 @@ export class Upload extends AbstractEntity {
   extension: string;
 
   @Exclude()
-  @Column({ default: false })
+  @Column({ default: true })
   canDelete: boolean;
 
   @Exclude()
